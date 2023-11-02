@@ -14,10 +14,7 @@ class NoteApp extends StatelessWidget {
     return MaterialApp(
       title: '아이디어노트',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFF48FB1),
-        ),
-        primaryColor: const Color(0xFFF48FB1),
+        primaryColor: Colors.yellow,
         useMaterial3: false,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

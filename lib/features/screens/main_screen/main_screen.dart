@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:idea_note3/constants/sizes.dart';
 import 'package:idea_note3/features/widgets/back_handler_button.dart';
+import 'package:idea_note3/features/widgets/idea_list_builder.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -40,7 +41,28 @@ class _MainScreenState extends State<MainScreen> {
           elevation: 0,
           backgroundColor: Colors.white,
         ),
-        body: Container(),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Sizes.size20,
+            vertical: Sizes.size16,
+          ),
+          child: ListView.builder(
+            itemCount: 8,
+            itemBuilder: (BuildContext context, int index) {
+              return IdeaList(index: index);
+            },
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
+          onPressed: () {},
+          child: Image.asset(
+            "assets/images/post.png",
+            color: Colors.white,
+            height: Sizes.size28,
+            width: Sizes.size28,
+          ),
+        ),
       ),
     );
   }

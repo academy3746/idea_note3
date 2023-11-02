@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:idea_note3/features/screens/main_screen/main_screen.dart';
+import 'package:idea_note3/features/screens/splash_screen/splash_screen.dart';
 
 void main() {
   runApp(const NoteApp());
@@ -6,6 +8,7 @@ void main() {
 
 class NoteApp extends StatelessWidget {
   const NoteApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +21,11 @@ class NoteApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
+      initialRoute: SplashScreen.routeName,
+      routes: {
+        SplashScreen.routeName: (context) => const SplashScreen(),
+        MainScreen.routeName: (context) => const MainScreen(),
+      },
     );
   }
 }

@@ -12,6 +12,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  /// Exit Application with SnackBar on foreground
   late BackHandlerButton _backHandlerButton;
 
   @override

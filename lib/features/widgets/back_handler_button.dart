@@ -18,7 +18,7 @@ class BackHandlerButton {
     if (interval) {
       lastPressed = now;
       const snackBar = SnackBar(
-        content: Text("뒤로가기 버튼을 한 번 더 누르면 앱이 종료됩니다."),
+        content: Text("뒤로가기 버튼을 한 번 더 누르면 앱이 종료됩니다!"),
         duration: Duration(seconds: 2),
       );
 

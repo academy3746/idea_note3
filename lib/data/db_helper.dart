@@ -32,7 +32,7 @@ class DatabaseHelper {
   }
 
   /// CREATE
-  Future<int> insertDatabase(IdeaInfo ideaInfo) async {
+  Future<int> insertIdeaInfo(IdeaInfo ideaInfo) async {
     return await database.insert(
       "jh_write_idea",
       ideaInfo.toMap(),
@@ -40,7 +40,7 @@ class DatabaseHelper {
   }
 
   /// READ
-  Future<List<IdeaInfo>> selectDatabase() async {
+  Future<List<IdeaInfo>> selectIdeaInfo() async {
     final List<Map<String, dynamic>> result =
         await database.query("jh_write_idea");
 
@@ -53,7 +53,7 @@ class DatabaseHelper {
   }
 
   /// UPDATE
-  Future<int> updateDatabase(IdeaInfo ideaInfo) async {
+  Future<int> updateIdeaInfo(IdeaInfo ideaInfo) async {
     return await database.update(
       "jh_write_idea",
       ideaInfo.toMap(),
@@ -63,7 +63,7 @@ class DatabaseHelper {
   }
 
   /// DELETE
-  Future<int> deleteDatabase(int id) async {
+  Future<int> deleteIdeaInfo(int id) async {
     return await database.delete(
       "jh_write_idea",
       where: "id = ?",

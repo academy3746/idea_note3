@@ -1,5 +1,5 @@
 class IdeaInfo {
-  /// Data Class DTO
+  /// Data Class: DTO
   int? id; // PK, AUTO INCREMENT
   String title; // 아이디어 제목
   String motive; // 아이디어 동기

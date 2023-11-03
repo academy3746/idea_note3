@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:idea_note3/data/db_config.dart';
+import 'package:idea_note3/features/screens/edit_screen.dart';
 import 'package:idea_note3/features/screens/main_screen/main_screen.dart';
 import 'package:idea_note3/features/screens/splash_screen/splash_screen.dart';
 
@@ -23,6 +25,20 @@ class NoteApp extends StatelessWidget {
       routes: {
         SplashScreen.routeName: (context) => const SplashScreen(),
         MainScreen.routeName: (context) => const MainScreen(),
+      },
+      onGenerateRoute: (RouteSettings settings) {
+        /// values.isEmpty ? "게시글 등록" : "게시글 수정"
+        if (settings.name == EditScreen.routeName) {
+          final IdeaInfo? ideaInfo = settings.arguments as IdeaInfo?;
+
+          /// 1. 게시글 등록
+          return MaterialPageRoute(
+            builder: (BuildContext context) {
+              return EditScreen(ideaInfo: ideaInfo);
+            },
+          );
+        }
+        return null;
       },
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:idea_note3/constants/sizes.dart';
 import 'package:idea_note3/data/db_config.dart';
 import 'package:idea_note3/data/db_helper.dart';
+import 'package:idea_note3/features/screens/edit_screen.dart';
 import 'package:idea_note3/features/widgets/back_handler_button.dart';
 import 'package:idea_note3/features/widgets/idea_list_builder.dart';
 
@@ -32,7 +33,7 @@ class _MainScreenState extends State<MainScreen> {
     /// Append DB Instances to Array
     lstIdeaInfo = await dbHelper.selectIdeaInfo();
 
-    /// SELECT * FROM jh_write_idea WHERE (1) ORDER BY datetime DESC
+    /// SELECT * FROM `jh_write_idea` WHERE (1) ORDER BY datetime DESC
     lstIdeaInfo.sort(
       (IdeaInfo a, IdeaInfo b) => b.dateTime.compareTo(a.dateTime),
     );
@@ -43,7 +44,7 @@ class _MainScreenState extends State<MainScreen> {
     await dbHelper.initDatabase();
     await dbHelper.insertIdeaInfo(
       IdeaInfo(
-        title: "# 해병 수육을 만드는 방법",
+        title: "해병 수육을 만드는 방법",
         motive: "황근출 해병님의 해병 제트킥을 맞아보고서 생각난 아이디어",
         content: "막사에 아무렇게나 굴러 다니는 황룡을 잡아서 수육으로 만들자!",
         importance: 4,
@@ -97,7 +98,12 @@ class _MainScreenState extends State<MainScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
-          onPressed: () {},
+          onPressed: () async {
+            Navigator.pushNamed(
+              context,
+              EditScreen.routeName,
+            );
+          },
           child: Image.asset(
             "assets/images/post.png",
             color: Colors.white,

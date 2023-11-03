@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:idea_note3/constants/sizes.dart';
+import 'package:idea_note3/data/db_config.dart';
+import 'package:idea_note3/data/db_helper.dart';
 import 'package:idea_note3/features/widgets/back_handler_button.dart';
 import 'package:idea_note3/features/widgets/idea_list_builder.dart';
 
@@ -16,11 +18,48 @@ class _MainScreenState extends State<MainScreen> {
   /// Exit Application with SnackBar on foreground
   late BackHandlerButton _backHandlerButton;
 
+  /// Access to DB Server
+  var dbHelper = DatabaseHelper();
+
+  /// Prepare List array for appending DB Instances
+  List<IdeaInfo> lstIdeaInfo = [];
+
+  /// READ Database
+  Future<void> _getIdeaInfo() async {
+    /// Get all DB Instances from <db_config.dart>
+    await dbHelper.initDatabase();
+
+    /// Append DB Instances to Array
+    lstIdeaInfo = await dbHelper.selectIdeaInfo();
+
+    /// SELECT * FROM jh_write_idea WHERE (1) ORDER BY datetime DESC
+    lstIdeaInfo.sort(
+      (IdeaInfo a, IdeaInfo b) => b.dateTime.compareTo(a.dateTime),
+    );
+    setState(() {});
+  }
+
+  Future<void> insertDummyData() async {
+    await dbHelper.initDatabase();
+    await dbHelper.insertIdeaInfo(
+      IdeaInfo(
+        title: "# 해병 수육을 만드는 방법",
+        motive: "황근출 해병님의 해병 제트킥을 맞아보고서 생각난 아이디어",
+        content: "막사에 아무렇게나 굴러 다니는 황룡을 잡아서 수육으로 만들자!",
+        importance: 4,
+        feedback: "따흐흑! 따흐흑! 비켜 나세요! 아쎄이가 나갑니다! 따흐흐흐흑!",
+        dateTime: DateTime.now().millisecondsSinceEpoch,
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
 
     _backHandlerButton = BackHandlerButton(context: context);
+    _getIdeaInfo();
+    //insertDummyData();
   }
 
   @override
@@ -47,9 +86,12 @@ class _MainScreenState extends State<MainScreen> {
             vertical: Sizes.size16,
           ),
           child: ListView.builder(
-            itemCount: 8,
+            itemCount: lstIdeaInfo.length,
             itemBuilder: (BuildContext context, int index) {
-              return IdeaList(index: index);
+              return IdeaList(
+                index: index,
+                lstIdeaInfo: lstIdeaInfo,
+              );
             },
           ),
         ),

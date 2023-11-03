@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:idea_note3/constants/sizes.dart';
+import 'package:idea_note3/data/db_config.dart';
 
 class ImportanceBar extends StatelessWidget {
   const ImportanceBar({
     super.key,
+    required this.lstIdeaInfo,
+    required this.index,
   });
+
+  final int index;
+  final List<IdeaInfo> lstIdeaInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class ImportanceBar extends StatelessWidget {
           bottom: Sizes.size6,
         ),
         child: RatingBar.builder(
-          initialRating: 3,
+          initialRating: lstIdeaInfo[index].importance.toDouble(),
           itemCount: 5,
           minRating: 1,
           itemSize: Sizes.size16,

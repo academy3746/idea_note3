@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:idea_note3/constants/sizes.dart';
+import 'package:idea_note3/data/db_config.dart';
 import 'package:idea_note3/features/widgets/importance_bar.dart';
+import 'package:intl/intl.dart';
 
 class IdeaList extends StatelessWidget {
   const IdeaList({
     super.key,
     required this.index,
+    required this.lstIdeaInfo,
   });
 
   final int index;
+  final List<IdeaInfo> lstIdeaInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +39,9 @@ class IdeaList extends StatelessWidget {
               left: Sizes.size12,
               bottom: Sizes.size16,
             ),
-            child: const Text(
-              "# 4차 산업혁명 시대에 개발자로 살아남기",
-              style: TextStyle(
+            child: Text(
+              "# ${lstIdeaInfo[index].title}",
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: Sizes.size16,
               ),
@@ -53,7 +57,10 @@ class IdeaList extends StatelessWidget {
                 bottom: Sizes.size6,
               ),
               child: Text(
-                "2023.11.02 22:03",
+                DateFormat("yyyy.MM.dd HH:mm").format(
+                  DateTime.fromMillisecondsSinceEpoch(
+                      lstIdeaInfo[index].dateTime),
+                ),
                 style: TextStyle(
                   fontSize: Sizes.size10,
                   color: Colors.grey.shade400,
@@ -63,7 +70,10 @@ class IdeaList extends StatelessWidget {
           ),
 
           /// importance
-          const ImportanceBar(),
+          ImportanceBar(
+            lstIdeaInfo: lstIdeaInfo,
+            index: index,
+          ),
         ],
       ),
     );

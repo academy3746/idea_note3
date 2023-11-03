@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:idea_note3/data/db_config.dart';
-import 'package:idea_note3/features/screens/edit_screen.dart';
+import 'package:idea_note3/features/screens/edit_screen/edit_screen.dart';
 import 'package:idea_note3/features/screens/main_screen/main_screen.dart';
 import 'package:idea_note3/features/screens/splash_screen/splash_screen.dart';
 

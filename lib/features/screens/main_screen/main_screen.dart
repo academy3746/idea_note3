@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:idea_note3/constants/sizes.dart';
 import 'package:idea_note3/data/db_config.dart';
 import 'package:idea_note3/data/db_helper.dart';
-import 'package:idea_note3/features/screens/edit_screen.dart';
+import 'package:idea_note3/features/screens/edit_screen/edit_screen.dart';
 import 'package:idea_note3/features/widgets/back_handler_button.dart';
 import 'package:idea_note3/features/widgets/idea_list_builder.dart';
 

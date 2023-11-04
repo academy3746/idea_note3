@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:idea_note3/constants/sizes.dart';
 import 'package:idea_note3/data/db_config.dart';
+import 'package:idea_note3/data/db_helper.dart';
+import 'package:idea_note3/features/widgets/delete_button.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({
+  DetailScreen({
     super.key,
     this.ideaInfo,
   });
@@ -11,6 +13,8 @@ class DetailScreen extends StatelessWidget {
   static String routeName = "/detail";
 
   final IdeaInfo? ideaInfo;
+
+  final dbHelper = DatabaseHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -37,48 +41,10 @@ class DetailScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text("주의 하세요!"),
-                    content: const Text("정말로 삭제 하시겠어요?"),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text(
-                          "취소",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "확인",
-                          style: TextStyle(
-                            color: Colors.redAccent,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              );
-              //Navigator.of(context).pop();
-            },
-            child: const Text(
-              "삭제",
-              style: TextStyle(
-                color: Colors.redAccent,
-                fontSize: Sizes.size16,
-              ),
-            ),
+          DeleteButton(
+            context: context,
+            ideaInfo: ideaInfo,
+            dbHelper: dbHelper,
           ),
         ],
       ),

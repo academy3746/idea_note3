@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:idea_note3/constants/sizes.dart';
 import 'package:idea_note3/data/db_config.dart';
 import 'package:idea_note3/data/db_helper.dart';
+import 'package:idea_note3/features/screens/detail_screen/detail_screen.dart';
 import 'package:idea_note3/features/screens/edit_screen/edit_screen.dart';
 import 'package:idea_note3/features/widgets/back_handler_button.dart';
 import 'package:idea_note3/features/widgets/idea_list_builder.dart';
@@ -89,9 +90,18 @@ class _MainScreenState extends State<MainScreen> {
           child: ListView.builder(
             itemCount: lstIdeaInfo.length,
             itemBuilder: (BuildContext context, int index) {
-              return IdeaList(
-                index: index,
-                lstIdeaInfo: lstIdeaInfo,
+              return GestureDetector(
+                onTap: () async {
+                  Navigator.pushNamed(
+                    context,
+                    DetailScreen.routeName,
+                    arguments: lstIdeaInfo[index],
+                  );
+                },
+                child: IdeaList(
+                  index: index,
+                  lstIdeaInfo: lstIdeaInfo,
+                ),
               );
             },
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:idea_note3/data/db_config.dart';
+import 'package:idea_note3/features/screens/detail_screen/detail_screen.dart';
 import 'package:idea_note3/features/screens/edit_screen/edit_screen.dart';
 import 'package:idea_note3/features/screens/main_screen/main_screen.dart';
 import 'package:idea_note3/features/screens/splash_screen/splash_screen.dart';
@@ -35,6 +36,16 @@ class NoteApp extends StatelessWidget {
           return MaterialPageRoute(
             builder: (BuildContext context) {
               return EditScreen(ideaInfo: ideaInfo);
+            },
+          );
+
+          /// 2. 게시물 상세 & 수정
+        } else if (settings.name == DetailScreen.routeName) {
+          final IdeaInfo? ideaInfo = settings.arguments as IdeaInfo?;
+
+          return MaterialPageRoute(
+            builder: (BuildContext context) {
+              return DetailScreen(ideaInfo: ideaInfo);
             },
           );
         }

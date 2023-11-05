@@ -92,11 +92,33 @@ class _MainScreenState extends State<MainScreen> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () async {
-                  Navigator.pushNamed(
+                  var result = await Navigator.pushNamed(
                     context,
                     DetailScreen.routeName,
                     arguments: lstIdeaInfo[index],
                   );
+
+                  if (result != null) {
+                    String msg = "";
+
+                    /// 1. 수정하기 Action (update)
+                    if (result == "update") {
+                      msg = "게시글 수정이 완료되었습니다.";
+                    } else if (result == "delete") {
+                      /// 2. 삭제하기 Action (delete)
+                      msg = "게시글 삭제가 완료되었습니다.";
+                    }
+                    _getIdeaInfo();
+
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(msg),
+                          duration: const Duration(seconds: 3),
+                        ),
+                      );
+                    }
+                  }
                 },
                 child: IdeaList(
                   index: index,
@@ -109,10 +131,23 @@ class _MainScreenState extends State<MainScreen> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
           onPressed: () async {
-            Navigator.pushNamed(
+            var result = await Navigator.pushNamed(
               context,
               EditScreen.routeName,
             );
+
+            if (result != null) {
+              _getIdeaInfo();
+
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("게시글 작성이 완료되었습니다!"),
+                    duration: Duration(seconds: 3),
+                  ),
+                );
+              }
+            }
           },
           child: Image.asset(
             "assets/images/post.png",

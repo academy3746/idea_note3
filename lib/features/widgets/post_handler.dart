@@ -49,7 +49,21 @@ class PostHandler {
       await setInsertIdeaInfo(ideaInfo);
 
       if (context.mounted) {
-        Navigator.pop(context);
+        Navigator.pop(context, "insert");
+      }
+    } else {
+      var ideaInfoModify = ideaInfo;
+
+      ideaInfoModify?.title = titleValue;
+      ideaInfoModify?.motive = motiveValue;
+      ideaInfoModify?.content = contentValue;
+      ideaInfoModify?.importance = score;
+      ideaInfoModify?.feedback = feedbackValue.isNotEmpty ? feedbackValue : "";
+
+      await setUpdateIdeaInfo(ideaInfoModify!);
+
+      if (context.mounted) {
+        Navigator.pop(context, "update");
       }
     }
   }
@@ -58,5 +72,11 @@ class PostHandler {
   Future<void> setInsertIdeaInfo(IdeaInfo ideaInfo) async {
     await databaseHelper.initDatabase();
     await databaseHelper.insertIdeaInfo(ideaInfo);
+  }
+
+  /// UPDATE data to DB Server
+  Future<void> setUpdateIdeaInfo(IdeaInfo ideaInfo) async {
+    await databaseHelper.initDatabase();
+    await databaseHelper.updateIdeaInfo(ideaInfo);
   }
 }

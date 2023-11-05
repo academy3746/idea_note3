@@ -53,7 +53,7 @@ class DeleteButton extends StatelessWidget {
                       Navigator.of(context).pop();
 
                       /// 2. Exit current screen
-                      Navigator.pop(context);
+                      Navigator.pop(context, "delete");
                     }
                   },
                   child: const Text(

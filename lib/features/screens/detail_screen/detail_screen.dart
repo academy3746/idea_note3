@@ -174,12 +174,18 @@ class DetailScreen extends StatelessWidget {
 
             /// Edit Button
             GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(
+              onTap: () async {
+                var result = await Navigator.pushNamed(
                   context,
                   EditScreen.routeName,
                   arguments: ideaInfo,
                 );
+
+                if (result != null) {
+                  if (context.mounted) {
+                    Navigator.pop(context, "update");
+                  }
+                }
               },
               child: const ConfirmButton(status: "수정하기"),
             ),

@@ -78,6 +78,43 @@ class _EditScreenState extends State<EditScreen> {
     _motiveController;
     _contentController;
     _feedbackController;
+
+    if (widget.ideaInfo != null) {
+      /// 기존 입력 필드 Data Load
+      _titleController.text = widget.ideaInfo!.title;
+      _motiveController.text = widget.ideaInfo!.motive;
+      _contentController.text = widget.ideaInfo!.content;
+
+      if (widget.ideaInfo!.feedback.isNotEmpty) {
+        _feedbackController.text = widget.ideaInfo!.feedback;
+      }
+
+      /// Importance Score Load
+      _initClickedStatus();
+      switch (widget.ideaInfo!.importance) {
+        case 1:
+          isClicked01 = true;
+          break;
+
+        case 2:
+          isClicked02 = true;
+          break;
+
+        case 3:
+          isClicked03 = true;
+          break;
+
+        case 4:
+          isClicked04 = true;
+          break;
+
+        case 5:
+          isClicked05 = true;
+          break;
+      }
+
+      importanceScore = widget.ideaInfo!.importance;
+    }
   }
 
   @override
@@ -97,9 +134,9 @@ class _EditScreenState extends State<EditScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
-          "새 아이디어 작성하기",
-          style: TextStyle(
+        title: Text(
+          widget.ideaInfo == null ? "새 아이디어 작성하기" : "아이디어 수정하기",
+          style: const TextStyle(
               color: Colors.black,
               fontSize: Sizes.size16,
               fontWeight: FontWeight.bold),
@@ -252,7 +289,9 @@ class _EditScreenState extends State<EditScreen> {
                 /// Confirm or Edit Button
                 GestureDetector(
                   onTap: _editComplete,
-                  child: const ConfirmButton(status: "작성완료"),
+                  child: ConfirmButton(
+                    status: widget.ideaInfo == null ? "작성완료" : "수정완료",
+                  ),
                 ),
               ],
             ),
